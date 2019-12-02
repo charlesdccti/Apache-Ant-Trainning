@@ -39,15 +39,19 @@
 	</path>
 
 	
-	<target name="compilar" depends="init">
+	<target name="copiar-recursos" depends="init">
+		<copy todir="${build.dir}/${classes.dir}/">
+			<fileset dir="src">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+	</target>
+	
+	
+	<target name="compilar" depends="copiar-recursos">
 		<javac destdir="${build.dir}/${classes.dir}" srcdir="src">
 			<classpath refid="classpath-compilacao"/>
 		</javac>
-	</target>
-
-
-	<target name="empacotar" depends="compilar">
-		<jar destfile="${build.dir}/treinamento.jar" basedir="${build.dir}" />
 	</target>
 
 
@@ -70,5 +74,23 @@
 		</junit>
 	</target>
 
+
+	<target name="empacotar" depends="compilar">
+		<war destfile="${build.dir}/agenda.war" webxml="WebContent/WEB-INF/web.xml">
+			<classes dir="${build.dir}/classes" />
+			<fileset dir="WebContent" >
+			    <exclude name="WEB-INF/classes/" />
+			</fileset>
+		</war>
+	</target>
+
+	
+	<target name="deploy-local" depends="empacotar">
+	    <copy file="${build.dir}/agenda.war" todir="/Users/charles/Desenvolvimento/AmbienteJava/Servers/apache-tomcat-9.0.29/webapps" />
+	</target>
+	
+	<target name="rodar-tomcat-local" depends="deploy-local">
+	        <exec executable="/Users/charles/Desenvolvimento/AmbienteJava/Servers/apache-tomcat-9.0.29/bin/startup.sh" />
+	</target>
 
 </project>
