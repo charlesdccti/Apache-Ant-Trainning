@@ -1,0 +1,4 @@
+Testsuite: br.com.caelum.agenda.modelo.ContatoTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,001 sec
+
+Testcase: pegaDadosDoOutroContato took 0 sec
