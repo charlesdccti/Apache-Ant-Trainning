@@ -92,5 +92,12 @@
 	<target name="rodar-tomcat-local" depends="deploy-local">
 	        <exec executable="/Users/charles/Desenvolvimento/AmbienteJava/Servers/apache-tomcat-9.0.29/bin/startup.sh" />
 	</target>
+	
+	<target name="deploy-remoto" depends="empacotar" >
+	      <scp file="${build.dir}/agenda.war" todir="ubuntu@ec2-3-85-119-47.compute-1.amazonaws.com:/var/lib/tomcat8/webapps" 
+	       keyfile="aws/chave-aws.pem" password="" trust="true" />
+	</target>
+	
+	
 
 </project>
